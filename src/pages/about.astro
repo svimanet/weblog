@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/BlogPost.astro';
+---
+
+<Layout
+	title="Om sida"
+	description="Lorem ipsum dolor sit amet"
+	pubDate={new Date('April 08 2024')}
+	heroImage="blog-placeholder-about.jpg"
+>
+	<h2 style="font-size:1.5rem"><a href="https://en.wikipedia.org/wiki/Blog">Weblog (Blog)</a></h2>
+	<blockquote style="font-size:1rem" cite="https://en.wikipedia.org/wiki/Blog">
+		Ein weblog (frå engelsk web (vev) og log (logg), i kortform ein blog eller blogg, på norsk òg vevlogg) 
+		er eit omgrep om ei internettside der éin eller fleire forfattarar ytrar synspunkt og fortel om det som skjer i verda. ...
+	</blockquote>
+	<p>Sida er laga med <a href="https://bun.sh/">Bun.sh</a> og <a href="https://astro.build/">Astro</a>, med ein Astro Blog template. Den er bygd og deploya med GitHub actions, til Github pages.</p>
+</Layout>

@@ -1,0 +1,16 @@
+---
+title: "Første post"
+description: ""
+pubDate: "April 08 2024"
+heroImage: "/weblog/blog-placeholder-3.jpg"
+---
+
+Første post. Ville prøva å laga ein weblog fort som fy. Har lekt litt med [Bun.sh](https://bun.sh/) i det siste og sjekka ut mulige templates. [Astro](https://astro.build/) såg veldig enkelt og greit ut. Kjørte `bun create astro` som kjørte ein (veldig kul ngl) CLI wizard, som ga meg mulighet for å starta med "Blog template".
+Etter wizard var ferdig, så var det berre å kjøre `npm run dev` og vips så var bloggen oppe og gikk.
+
+Setup kom med ferdig struktur, der blogposts er definert som <abbr title='Markdown'>MD</abbr>(X) filer i repoet, ingen <abbr title='Database'>DB</abbr> eller <abbr title='Content Management System'>CMS</abbr>. Siden eg skrive <abbr title='Markdown'>MD</abbr> og skal bruka da personlig uansett, så vurdere eg heller ingen DB/CMS options utenom Git.
+
+Kasta litt placeholder stuffs og begynte å tenka på mulighet for trunk based deployment med GH (GitHub) actions, siden eg valgte å bruka in-repo md filer for bloggpostene. Såg fort at astro har god støtte for GH Pages, som kan deployes via GH Actions.
+
+- https://docs.astro.build/en/install/auto/
+- https://docs.astro.build/en/guides/deploy/github/

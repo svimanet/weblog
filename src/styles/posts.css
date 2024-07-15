@@ -1,0 +1,14 @@
+.posts-list-header {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  /* border: 1px solid gray; */
+  background-color: #2d2c2c;
+  margin-bottom: 10px;
+  border: 1px solid #424242;
+  padding-left: 10px;
+}
+
+.posts-list-header button {
+  width: 100px;
+}

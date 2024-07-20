@@ -1,15 +1,22 @@
-import { Link, Outlet, UIMatch, useLocation, useMatches } from 'react-router-dom'
-import { ReactNode } from 'react';
+import {
+  Link,
+  Outlet,
+  UIMatch,
+  useLocation,
+  useMatches,
+} from "react-router-dom";
+import { ReactNode } from "react";
 
 interface Crumbs extends UIMatch {
-  handle: { 
+  handle: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     crumb: (data: any) => ReactNode;
-  }
+  };
 }
 
 function Breadcrumbs() {
-  let matches: Crumbs[] = useMatches() as Crumbs[];
-  let crumbs = matches
+  const matches: Crumbs[] = useMatches() as Crumbs[];
+  const crumbs = matches
     .filter((match: Crumbs) => Boolean(match.handle?.crumb))
     .map((match) => match.handle.crumb(match.data));
 
@@ -17,8 +24,8 @@ function Breadcrumbs() {
     const url = matches
       .slice(0, index + 1)
       .map((match) => match.pathname)
-      .join('')
-      .replace('//', '/');
+      .join("")
+      .replace("//", "/");
     return url;
   });
 
@@ -29,29 +36,29 @@ function Breadcrumbs() {
   return (
     <div>
       <ol className="breadcrumbs">
-        { crumbs.map((crumb, index) => {
+        {crumbs.map((crumb, index) => {
           const isMoreThanOne = crumbs.length > 1;
           const isFirst = index === 0;
           const isLast = index === crumbs.length - 1;
 
           const to = links[index];
-          const decor = !isLast ? ' / ' : '';
-          const link = (
-              (isMoreThanOne && !isLast) ||
-              (!isMoreThanOne && isFirst)
-            )
-            ? <Link to={to}>{crumb}</Link>
-            : <>{crumb}</>;
+          const decor = !isLast ? " / " : "";
+          const link =
+            (isMoreThanOne && !isLast) || (!isMoreThanOne && isFirst) ? (
+              <Link to={to}>{crumb}</Link>
+            ) : (
+              <>{crumb}</>
+            );
 
           return (
             <li key={index}>
               <span>
-                {link}{decor}
+                {link}
+                {decor}
               </span>
             </li>
           );
-        })
-        }
+        })}
       </ol>
     </div>
   );
@@ -59,8 +66,8 @@ function Breadcrumbs() {
 
 function App() {
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
-  const isPostsPage = location.pathname.startsWith('/posts');
+  const isHomePage = location.pathname === "/";
+  const isPostsPage = location.pathname.startsWith("/posts");
 
   return (
     <>
@@ -69,10 +76,14 @@ function App() {
         <nav>
           <ul>
             <li>
-              <Link className={isHomePage ? 'active' : ''} to="/">Home</Link>
+              <Link className={isHomePage ? "active" : ""} to="/">
+                Home
+              </Link>
             </li>
             <li>
-              <Link className={isPostsPage ? 'active' : ''} to="/posts">Posts</Link>
+              <Link className={isPostsPage ? "active" : ""} to="/posts">
+                Posts
+              </Link>
             </li>
           </ul>
         </nav>
@@ -84,7 +95,7 @@ function App() {
         </div>
       </main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

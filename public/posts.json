@@ -1,11 +1,13 @@
 [
   {
+    "id": "first-post",
     "nb": "Den første posten",
     "nn": "Den første posten",
     "en": "The first post",
     "date": "07.07.2023"
   },
   {
+    "id": "other",
     "nb": "Den andre posten",
     "nn": "Den andre posten",
     "en": "The second post",

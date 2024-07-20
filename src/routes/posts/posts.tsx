@@ -1,23 +1,21 @@
-import { ChangeEvent, ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Link, Outlet, useLoaderData, useLocation } from "react-router-dom";
-import Markdown from "react-markdown";
-import type { Post as PostObj, PostsList } from "../types";
-import '../styles/posts.css';
+import type { PostsList } from "./types";
+import "./posts.css";
 
-const PostLink = (
-  props: {
-    i: number,
-    date: string,
-    title: string,
-    to: string,
-    selectedPost: boolean;
-    setSelectedPost: (post: string) => void;
-    setShowingPostsList: (showing: boolean) => void;
+const PostLink = (props: {
+  i: number;
+  date: string;
+  title: string;
+  to: string;
+  selectedPost: boolean;
+  setSelectedPost: (post: string) => void;
+  setShowingPostsList: (showing: boolean) => void;
 }): ReactNode => (
-  <li key={`post-${props.i}-list-item`} >
-    <Link 
+  <li key={`post-${props.i}-list-item`}>
+    <Link
       id={`post-${props.i}-hyperlink`}
-      className={props.selectedPost ? 'selected' : ''}
+      className={props.selectedPost ? "selected" : ""}
       to={props.to}
       onClick={() => {
         props.setSelectedPost(`${props.i}`);
@@ -34,29 +32,36 @@ const PostLink = (
 export const Posts = () => {
   const loaderdata = useLoaderData() as PostsList;
   const location = useLocation();
-  const currentPost = location.pathname.split('/posts/')[1];
+  const currentPost = location.pathname.split("/posts/")[1];
 
   const [selectedPost, setSelectedPost] = useState(currentPost);
   const [showingPostsList, setShowingPostsList] = useState(true);
 
+  useEffect(() => {
+    if (location.pathname === "/posts") {
+      setShowingPostsList(true);
+    }
+  }, [location]);
+
   if (!loaderdata) {
-    return (<h2>Loading...</h2>);
-  };
+    return <h2>Loading...</h2>;
+  }
 
   const anchors: ReactNode[] = loaderdata.posts.map((anchor, i) => {
-    const isCurrentPost = selectedPost === `${i+1}`;
+    const isCurrentPost = selectedPost === `${i + 1}`;
     return (
       // TODO i18n
-      <PostLink i={i+1}
+      <PostLink
+        i={i + 1}
         date={anchor.date}
         title={anchor.nn}
-        to={`/posts/${i+1}`}
+        to={`/posts/${anchor.id}`}
         selectedPost={isCurrentPost}
         setSelectedPost={setSelectedPost}
         setShowingPostsList={setShowingPostsList}
       />
     );
-  })
+  });
 
   const Header = (): ReactNode => {
     const onClick = () => {
@@ -67,11 +72,7 @@ export const Posts = () => {
       <div className="posts-list-header">
         <h2>Weblog posts</h2>
         <button type={"button"} onClick={() => onClick()}>
-          {
-            showingPostsList
-            ? 'Hide'
-            : 'Show'
-          }
+          {showingPostsList ? "Hide" : "Show"}
         </button>
       </div>
     );
@@ -80,28 +81,8 @@ export const Posts = () => {
   return (
     <div className="posts-list-root">
       {<Header />}
-      {
-        showingPostsList
-        ? <ul className="posts">
-            {anchors}
-          </ul>
-        : null
-      }
+      {showingPostsList ? <ul className="posts">{anchors}</ul> : null}
       <Outlet />
     </div>
   );
 };
-
-export const Post = () => {
-  const loaderdata = useLoaderData() as PostObj;
-
-  if (!loaderdata) {
-    return (<h2>Loading...</h2>);
-  };
-
-  return (
-    <article>
-      <Markdown>{loaderdata.postContent}</Markdown>
-    </article>
-  );
-}
